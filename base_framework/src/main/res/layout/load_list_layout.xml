@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/load_refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnableAutoLoadMore="false"
+        app:srlEnableLoadMoreWhenContentNotFull="false">
+
+        <com.akashic.framework.widgets.MyRecyclerView
+            android:id="@+id/load_list"
+            android:descendantFocusability="beforeDescendants"
+            android:overScrollMode="never"
+            android:fadingEdge="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    <ImageView
+        android:id="@+id/load_layout_tip_iv"
+        android:layout_width="@dimen/dp_96"
+        android:layout_height="@dimen/dp_96"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/load_layout_tip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/load_layout_tip_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/sp_14" />
+</RelativeLayout>

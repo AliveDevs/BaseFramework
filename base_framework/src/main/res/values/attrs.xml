@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CenterTitleToolbar">
+        <attr name="ctt_titleTextAppearance" format="reference" />
+        <attr name="ctt_titleTextColor" format="reference|color" />
+        <attr name="ctt_title" format="reference|string" />
+        <attr name="ctt_naviIconColor" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="strokeColor" format="color" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="highlightEnable" format="boolean" />
+        <attr name="highlightColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RecyclerViewIndicator">
+        <attr name="rvi_bg_color" format="reference|color" />
+        <attr name="rvi_indicator_color" format="reference|color" />
+    </declare-styleable>
+</resources>

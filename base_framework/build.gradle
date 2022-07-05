@@ -1,0 +1,117 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+
+}
+
+kapt {
+    arguments {
+        [AROUTER_MODULE_NAME: project.getName()]
+    }
+}
+
+dependencies {
+
+    api rootProject.ext.deps.androidXCore
+    api rootProject.ext.deps.appcompat
+    api rootProject.ext.deps.material
+    api rootProject.ext.deps.constraintlayout
+    api rootProject.ext.deps.startup
+
+    api rootProject.ext.deps.arouterApi
+    kapt rootProject.ext.deps.arouterCompiler
+
+    api rootProject.ext.deps.okhttp
+
+    api rootProject.ext.deps.gson
+    api rootProject.ext.deps.retrofit
+    api rootProject.ext.deps.retrofit_gson
+
+    api rootProject.ext.deps.glide
+
+    api rootProject.ext.deps.lifecycleCore
+    api rootProject.ext.deps.lifecycleViewmodel
+    api rootProject.ext.deps.lifecycleLiveData
+
+    api rootProject.ext.deps.kotlinxCoroutinesCore
+    api rootProject.ext.deps.kotlinxCoroutinesAndroid
+
+    api rootProject.ext.deps.smartRefreshLayout
+    api rootProject.ext.deps.smartRefreshLayoutHeader
+    api rootProject.ext.deps.smartRefreshLayoutFooter
+
+    api rootProject.ext.deps.logger
+
+    api rootProject.ext.deps.immersionbar
+
+    api rootProject.ext.deps.multitype
+
+    api rootProject.ext.deps.permissionx
+
+    api rootProject.ext.deps.viewBindingBase
+
+    api rootProject.ext.deps.utilCode
+
+    api rootProject.ext.deps.preference
+
+    api rootProject.ext.deps.flycoTabLayout
+
+    api rootProject.ext.deps.banner
+
+    api rootProject.ext.deps.liveEventBus
+
+    api rootProject.ext.deps.filedownloaderCore
+    api rootProject.ext.deps.filedownloaderOkHttp
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.akashic.framework'//你要发布的库的组ID  建议使用包名
+                artifactId = 'AkashicFramework'//你要发布的库的名字
+                version = '1.0'//库的版本 可以在外部定义一个变量，保持整个配置文件中的版本一致性
+            }
+        }
+    }
+}
