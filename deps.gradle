@@ -34,7 +34,8 @@ ext {
             banner            : "2.2.2",
             superTextView     : "v3.2.6.64",
             liveEventBus      : "1.8.0",
-            filedownloader    : "1.0.7"
+            filedownloader    : "1.0.7",
+            pictureSelector:"v3.10.5"
     ]
 
     deps = [
@@ -95,5 +96,7 @@ ext {
 
             filedownloaderCore      : "com.liulishuo.okdownload:okdownload:${versions.filedownloader}",
             filedownloaderOkHttp    : "com.liulishuo.okdownload:okhttp:${versions.filedownloader}",
+
+            pictureSelector    : "io.github.lucksiege:pictureselector:${versions.pictureSelector}",
     ]
 }

@@ -1,5 +1,6 @@
 package com.akashic.framework.ext
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
@@ -8,13 +9,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.akashic.framework.utils.engine.GlideEngine
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.Utils
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.orhanobut.logger.Logger
 import com.permissionx.guolindev.PermissionX
+import java.util.ArrayList
 
 /**
  * 获取字符串资源
@@ -65,40 +72,59 @@ fun Context.hasPermission(permission: String): Boolean {
 }
 
 
-fun FragmentActivity.withPermissions(
-    permissions: List<String>,
-    block: (isGranted: Boolean) -> Unit
-) {
-    PermissionX.init(this).permissions(permissions).request { allGranted, _, _ ->
-        block.invoke(allGranted)
-    }
-}
-
 fun FragmentActivity.withPermission(
-    permission: String,
+    vararg permission: String,
     block: (isGranted: Boolean) -> Unit
 ) {
-    PermissionX.init(this).permissions(permission).request { allGranted, _, _ ->
+    PermissionX.init(this).permissions(*permission).request { allGranted, _, _ ->
         block.invoke(allGranted)
     }
 }
 
-fun Fragment.withPermissions(
-    permissions: List<String>,
-    block: (isGranted: Boolean) -> Unit
-) {
-    PermissionX.init(this).permissions(permissions).request { allGranted, _, _ ->
-        block.invoke(allGranted)
-    }
-}
 
 fun Fragment.withPermission(
-    permission: String,
+    vararg permission: String,
     block: (isGranted: Boolean) -> Unit
 ) {
-    PermissionX.init(this).permissions(permission).request { allGranted, _, _ ->
+    PermissionX.init(this).permissions(*permission).request { allGranted, _, _ ->
         block.invoke(allGranted)
     }
+}
+
+fun Activity.selectPic(
+    maxSelectNum: Int = 1,
+    selectMimeType: Int = SelectMimeType.ofAll(),
+    callback: (result: ArrayList<LocalMedia>?) -> Unit
+) {
+    PictureSelector.create(this)
+        .openGallery(selectMimeType)
+        .setImageEngine(GlideEngine.createGlideEngine())
+        .setMaxSelectNum(maxSelectNum)
+//        .setPictureWindowAnimationStyle(
+//            PictureWindowAnimationStyle.ofCustomWindowAnimationStyle(
+//                R.anim.img_picker_right_in,
+//                R.anim.img_picker_right_out
+//            )
+//        )
+        .forResult(object : OnResultCallbackListener<LocalMedia> {
+            override fun onResult(result: ArrayList<LocalMedia>?) {
+                callback.invoke(result)
+            }
+
+            override fun onCancel() {
+
+            }
+        }
+        )
+}
+
+
+fun Fragment.selectPic(
+    maxSelectNum: Int = 1,
+    selectMimeType: Int = SelectMimeType.ofAll(),
+    callback: (result: ArrayList<LocalMedia>?) -> Unit
+) {
+    this.requireActivity().selectPic(maxSelectNum, selectMimeType, callback)
 }
 
 /**

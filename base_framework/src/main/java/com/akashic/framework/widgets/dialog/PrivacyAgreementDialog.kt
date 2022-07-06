@@ -25,15 +25,6 @@ class PrivacyAgreementDialog(context: Context) :
      */
     private var activeBgColor = Color.BLUE
 
-    /**
-     * 用户协议链接
-     */
-    private var userAgreementUrl = ""
-
-    /**
-     * 隐私政策链接
-     */
-    private var privacyPolicyUrl = ""
 
     /**
      * 同意按钮点击
@@ -48,7 +39,7 @@ class PrivacyAgreementDialog(context: Context) :
     /**
      * 链接点击
      */
-    private var onLinkClick: ((url: String) -> Unit)? = null
+    private var onLinkClick: ((isUserAgreement: Boolean) -> Unit)? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,12 +56,12 @@ class PrivacyAgreementDialog(context: Context) :
         } else {
             val sb = SpannableStringBuilder().apply {
                 append("欢迎使用${appName}！\n\n在使用我们的产品服务前，请您先阅读并了解")
-                append("《服务协议》".withLink(userAgreementUrl) {
-                    onLinkClick?.invoke(it)
+                append("《服务协议》".withLink("") {
+                    onLinkClick?.invoke(true)
                 })
                 append("和")
-                append("《隐私政策》".withLink(privacyPolicyUrl) {
-                    onLinkClick?.invoke(it)
+                append("《隐私政策》".withLink("") {
+                    onLinkClick?.invoke(false)
                 })
                 append("。\n\n我们将严格按照上述协议为您提供服务，保护您的信息安全，点击“同意”即表示您已阅读并同意全部条款，可以继续使用我们的产品和服务。")
             }
@@ -105,28 +96,13 @@ class PrivacyAgreementDialog(context: Context) :
     }
 
     /**
-     * 设置自定义文字内容 [setUserAgreementUrl] [setPrivacyPolicyUrl] [setLinkClick] 将失效
+     * 设置自定义文字内容 [setLinkClick] 将失效
      * @param content CharSequence 要展示的自定义内容
      */
     fun setCustomContent(content: CharSequence) {
         customContent = content
     }
 
-    /**
-     * 设置用户协议链接
-     * @param url String 链接
-     */
-    fun setUserAgreementUrl(url: String) {
-        userAgreementUrl = url
-    }
-
-    /**
-     * 设置隐私政策链接
-     * @param url String 链接
-     */
-    fun setPrivacyPolicyUrl(url: String) {
-        privacyPolicyUrl = url
-    }
 
     /**
      * 设置统一按钮背景色
@@ -154,9 +130,9 @@ class PrivacyAgreementDialog(context: Context) :
 
     /**
      * 设置链接点击事件
-     * @param onClick Function1<[@kotlin.ParameterName] String, Unit>? 点击回调事件
+     * @param onClick Function1<[@kotlin.ParameterName] Boolean, Unit>?
      */
-    fun setLinkClick(onClick: ((url: String) -> Unit)? = null) {
+    fun setLinkClick(onClick: ((isUserAgreement: Boolean) -> Unit)? = null) {
         onLinkClick = onClick
     }
 
