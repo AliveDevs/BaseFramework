@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.text.method.LinkMovementMethod
 import com.akashic.framework.databinding.PrivacyAgreementDialogBinding
 import com.akashic.framework.ext.*
 
@@ -68,7 +69,8 @@ class PrivacyAgreementDialog(context: Context) :
             binding.content.text = sb
         }
         binding.content.setLinkTextColor(activeBgColor)
-        binding.content.highlightColor = activeBgColor
+        binding.content.movementMethod = LinkMovementMethod.getInstance()
+        binding.content.highlightColor = Color.TRANSPARENT
 
         binding.agreeBtn.background =
             shape {
