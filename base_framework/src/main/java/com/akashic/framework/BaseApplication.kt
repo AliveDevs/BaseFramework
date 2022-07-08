@@ -17,6 +17,8 @@ abstract class BaseApplication : Application() {
      */
     abstract val logTag: String
 
+    abstract val isDebug:Boolean
+
     override fun onCreate() {
         super.onCreate()
 
@@ -29,7 +31,7 @@ abstract class BaseApplication : Application() {
 
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ -> ClassicsFooter(context) }
 
-        if (BuildConfig.DEBUG) {
+        if (isDebug) {
             ARouter.openDebug()
             ARouter.openLog()
             Logger.addLogAdapter(
