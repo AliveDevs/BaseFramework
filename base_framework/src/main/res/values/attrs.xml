@@ -18,4 +18,27 @@
         <attr name="rvi_bg_color" format="reference|color" />
         <attr name="rvi_indicator_color" format="reference|color" />
     </declare-styleable>
+
+    <declare-styleable name="ListTileLayout">
+        <attr name="ltl_icon" format="reference" />
+        <attr name="ltl_icon_width" format="dimension|reference" />
+        <attr name="ltl_icon_height" format="dimension|reference" />
+        <attr name="ltl_padding" format="dimension|reference" />
+        <attr name="ltl_title" format="string|reference" />
+        <attr name="ltl_title_size" format="dimension|reference" />
+        <attr name="ltl_title_color" format="color|reference" />
+        <attr name="ltl_right_icon" format="reference" />
+        <attr name="ltl_right_icon_width" format="dimension|reference" />
+        <attr name="ltl_right_icon_height" format="dimension|reference" />
+        <attr name="ltl_corners" format="dimension|reference"/>
+        <attr name="ltl_topLeft_corner" format="dimension|reference"/>
+        <attr name="ltl_topRight_corner" format="dimension|reference"/>
+        <attr name="ltl_bottomLeft_corner" format="dimension|reference"/>
+        <attr name="ltl_bottomRight_corner" format="dimension|reference"/>
+        <attr name="ltl_bg_color" format="color|reference"/>
+        <attr name="ltl_divider_color" format="color|reference"/>
+        <attr name="ltl_divider_height" format="dimension|reference"/>
+        <attr name="ltl_divider_marginStart" format="dimension|reference"/>
+        <attr name="ltl_divider_marginEnd" format="dimension|reference"/>
+    </declare-styleable>
 </resources>

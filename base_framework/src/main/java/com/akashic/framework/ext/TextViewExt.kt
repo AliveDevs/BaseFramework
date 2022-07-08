@@ -1,11 +1,13 @@
 package com.akashic.framework.ext
 
+import android.text.InputFilter
 import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.widget.EditText
 import android.widget.TextView
 import com.akashic.framework.widgets.span.CenterAlignImageSpan
+import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ResourceUtils
 
 /**
@@ -97,4 +99,16 @@ fun TextView.addPreIcons(preIconRes: ArrayList<Int>) {
         )
     }
     text = spanStr
+}
+
+/**
+ * 限制输入中文
+ * @receiver EditText
+ */
+fun EditText.limitChinese(){
+    val newFilters=this.filters.toMutableList()
+    newFilters.add(InputFilter { charSequence, _, _, _, _, _ ->
+        if(charSequence.isNullOrEmpty() || RegexUtils.isZh(charSequence)) "" else charSequence
+    })
+    this.filters = newFilters.toTypedArray()
 }
