@@ -66,9 +66,9 @@ abstract class BaseBindingActivity<VB : ViewBinding> : AppCompatActivity() {
      */
     open fun provideTitleBar(): View? {
         val rootView = binding.root as ViewGroup
-        if (rootView.childCount > 0) {
-            if (rootView.getChildAt(0) is Toolbar) {
-                return rootView[0]
+        for (i in 0 until rootView.childCount) {
+            if (rootView.getChildAt(i) is Toolbar) {
+                return rootView[i]
             }
         }
         return null

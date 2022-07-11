@@ -1,9 +1,11 @@
 package com.akashic.framework.ext
 
+import android.graphics.Color
 import android.text.InputFilter
 import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.method.LinkMovementMethod
 import android.widget.EditText
 import android.widget.TextView
 import com.akashic.framework.widgets.span.CenterAlignImageSpan
@@ -111,4 +113,12 @@ fun EditText.limitChinese(){
         if(charSequence.isNullOrEmpty() || RegexUtils.isZh(charSequence)) "" else charSequence
     })
     this.filters = newFilters.toTypedArray()
+}
+
+/**
+ * 允许可点击链接样式
+ */
+fun TextView.enableLinkStyle(highLightColor:Int = Color.TRANSPARENT){
+    movementMethod = LinkMovementMethod.getInstance()
+    highlightColor = highLightColor
 }
