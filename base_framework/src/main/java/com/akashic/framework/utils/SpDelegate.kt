@@ -100,6 +100,7 @@ open class SpDelegate {
                 property.name,
                 defaultValue
             )
+            if(src==defaultValue)return defaultValue
             return String(EncodeUtils.base64Decode(src))
         }
 
