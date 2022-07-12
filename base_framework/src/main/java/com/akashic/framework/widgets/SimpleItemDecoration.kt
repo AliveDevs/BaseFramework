@@ -42,9 +42,9 @@ class SimpleItemDecoration(private val spacing: Int, private val crossSpacing: I
                 }
 
                 if(isHorizontal){
-                    outRect.right = crossSpacing
+                    outRect.right = spacing
                 }else{
-                    outRect.bottom = crossSpacing
+                    outRect.bottom = spacing
                 }
             }
             is StaggeredGridLayoutManager -> {
