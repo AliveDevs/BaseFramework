@@ -305,10 +305,10 @@ class ShapeBuilder(private val shape: Shape) {
             cornersBuilder.topLeft,
             cornersBuilder.topRight,
             cornersBuilder.topRight,
-            cornersBuilder.bottomLeft,
-            cornersBuilder.bottomLeft,
             cornersBuilder.bottomRight,
             cornersBuilder.bottomRight,
+            cornersBuilder.bottomLeft,
+            cornersBuilder.bottomLeft
         )
 
         return gradientDrawable
