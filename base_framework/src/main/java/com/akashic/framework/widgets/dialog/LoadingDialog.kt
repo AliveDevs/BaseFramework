@@ -21,7 +21,7 @@ class LoadingDialog(context: Context) : BaseDialog(context) {
         super.onCreate(savedInstanceState)
 
         loadingImageview = ImageView(context).apply {
-            minimumHeight = 48.dp
+            minimumWidth = 48.dp
             minimumHeight = 48.dp
             setImageDrawable(ProgressDrawable().apply {
                 setColor(-0x99999a)
