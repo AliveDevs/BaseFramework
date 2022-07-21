@@ -7,6 +7,7 @@ import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updateLayoutParams
+import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 /**
@@ -108,4 +109,27 @@ fun View.addFakeStatusBar(fakeStatusBar: View) {
     }
 }
 
+/**
+ * 根据RecyclerView滑动距离设置透明度
+ * @receiver View
+ * @param recyclerView RecyclerView
+ * @param height Int 用于判断的滑动总距离
+ */
+fun View.changeAlphaWithRecyclerView(recyclerView:RecyclerView,height:Int){
+    var totalScroll = 0
+    recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            totalScroll += dy
+            alpha = if (totalScroll <= 0) {
+                0f
+            } else if (totalScroll in 1..height) {
+                val a= totalScroll/height.toFloat()
+                a
+            } else {
+                1f
+            }
+        }
+    })
+}
 
