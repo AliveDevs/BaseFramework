@@ -19,6 +19,7 @@ import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
+import com.luck.picture.lib.style.PictureSelectorStyle
 import com.orhanobut.logger.Logger
 import com.permissionx.guolindev.PermissionX
 import java.util.ArrayList
@@ -94,18 +95,14 @@ fun Fragment.withPermission(
 fun Activity.selectPic(
     maxSelectNum: Int = 1,
     selectMimeType: Int = SelectMimeType.ofAll(),
+    style: PictureSelectorStyle? = null,
     callback: (result: ArrayList<LocalMedia>?) -> Unit
 ) {
     PictureSelector.create(this)
         .openGallery(selectMimeType)
         .setImageEngine(GlideEngine.createGlideEngine())
         .setMaxSelectNum(maxSelectNum)
-//        .setPictureWindowAnimationStyle(
-//            PictureWindowAnimationStyle.ofCustomWindowAnimationStyle(
-//                R.anim.img_picker_right_in,
-//                R.anim.img_picker_right_out
-//            )
-//        )
+        .setSelectorUIStyle(style)
         .forResult(object : OnResultCallbackListener<LocalMedia> {
             override fun onResult(result: ArrayList<LocalMedia>?) {
                 callback.invoke(result)
@@ -118,14 +115,38 @@ fun Activity.selectPic(
         )
 }
 
+fun Activity.selectSinglePic(
+    selectMimeType: Int = SelectMimeType.ofAll(),
+    style: PictureSelectorStyle? = null,
+    callback: (result: LocalMedia?) -> Unit
+) {
+    selectPic(1, selectMimeType, style) {
+        if (it.isNullOrEmpty()) {
+            callback.invoke(null)
+        } else {
+            callback.invoke(it[0])
+        }
+    }
+}
+
 
 fun Fragment.selectPic(
     maxSelectNum: Int = 1,
     selectMimeType: Int = SelectMimeType.ofAll(),
+    style: PictureSelectorStyle? = null,
     callback: (result: ArrayList<LocalMedia>?) -> Unit
 ) {
-    this.requireActivity().selectPic(maxSelectNum, selectMimeType, callback)
+    this.requireActivity().selectPic(maxSelectNum, selectMimeType, style, callback)
 }
+
+fun Fragment.selectSinglePic(
+    selectMimeType: Int = SelectMimeType.ofAll(),
+    style: PictureSelectorStyle? = null,
+    callback: (result: LocalMedia?) -> Unit
+) {
+    this.requireActivity().selectSinglePic(selectMimeType,style,callback)
+}
+
 
 /**
  * 将路由字符串转换为ARouter路由对象
