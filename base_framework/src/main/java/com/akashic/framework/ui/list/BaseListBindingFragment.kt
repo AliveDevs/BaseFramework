@@ -11,7 +11,8 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 
-abstract class BaseListBindingFragment<VB : ViewBinding, VM : BaseListViewModel> : BaseBindingFragment<VB>() {
+abstract class BaseListBindingFragment<VB : ViewBinding, VM : BaseListViewModel> :
+    BaseBindingFragment<VB>() {
 
 
     /**
@@ -72,7 +73,7 @@ abstract class BaseListBindingFragment<VB : ViewBinding, VM : BaseListViewModel>
             is BaseListUiState.Success -> {
                 loadSucceed(uiState.list, uiState.noMoreData, uiState.clearOldData)
             }
-            is BaseListUiState.Init ->{
+            is BaseListUiState.Init -> {
                 initList(uiState.list)
             }
             is BaseListUiState.Loading -> {
@@ -99,13 +100,14 @@ abstract class BaseListBindingFragment<VB : ViewBinding, VM : BaseListViewModel>
         clearOldData: Boolean = false
     ) {
         loadListLayout.loadDataSuccess(dataList, noMoreData, clearOldData)
+        onLoadComplete()
     }
 
     /**
      * 首次加载显示的默认列表
      * @param list MutableList<Any>
      */
-    open fun initList(list: MutableList<Any>){
+    open fun initList(list: MutableList<Any>) {
 
     }
 
@@ -131,6 +133,7 @@ abstract class BaseListBindingFragment<VB : ViewBinding, VM : BaseListViewModel>
             return
         }
         loadListLayout.showEmpty(tip)
+        onLoadComplete()
     }
 
 
@@ -144,6 +147,14 @@ abstract class BaseListBindingFragment<VB : ViewBinding, VM : BaseListViewModel>
             return
         }
         loadListLayout.showError(tip)
+        onLoadComplete()
     }
 
+    /**
+     * 加载结束
+     * 无论加载成功与否都回调
+     */
+    open fun onLoadComplete() {
+
+    }
 }

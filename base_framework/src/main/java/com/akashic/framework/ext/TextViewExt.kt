@@ -1,6 +1,7 @@
 package com.akashic.framework.ext
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.text.InputFilter
 import android.text.InputType
 import android.text.Spannable
@@ -121,4 +122,12 @@ fun EditText.limitChinese(){
 fun TextView.enableLinkStyle(highLightColor:Int = Color.TRANSPARENT){
     movementMethod = LinkMovementMethod.getInstance()
     highlightColor = highLightColor
+}
+
+/**
+ * 设置删除线
+ * @receiver TextView
+ */
+fun TextView.addDelLine(){
+    paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
 }

@@ -8,7 +8,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import kotlin.math.abs
 
 /**
  * 隐藏当前View
@@ -129,6 +131,20 @@ fun View.changeAlphaWithRecyclerView(recyclerView:RecyclerView,height:Int){
             } else {
                 1f
             }
+        }
+    })
+}
+
+fun View.changeAlphaWithAppbarLayout(appBarLayout: AppBarLayout,height: Int){
+    appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+        val totalScroll = abs(verticalOffset)
+       alpha = if (totalScroll <= 0) {
+            0f
+        } else if (totalScroll in 1..height) {
+            val a= totalScroll/height.toFloat()
+            a
+        } else {
+            1f
         }
     })
 }

@@ -70,6 +70,7 @@ abstract class BaseListBindingActivity<VB : ViewBinding, VM : BaseListViewModel>
         clearOldData: Boolean = false
     ) {
         loadListLayout.loadDataSuccess(dataList, noMoreData, clearOldData)
+        onLoadComplete()
     }
 
     /**
@@ -94,6 +95,7 @@ abstract class BaseListBindingActivity<VB : ViewBinding, VM : BaseListViewModel>
             return
         }
         loadListLayout.showEmpty(tip)
+        onLoadComplete()
     }
 
 
@@ -103,6 +105,7 @@ abstract class BaseListBindingActivity<VB : ViewBinding, VM : BaseListViewModel>
             return
         }
         loadListLayout.showError(tip)
+        onLoadComplete()
     }
 
     private fun refreshList(): Flow<BaseListIntent> = callbackFlow {
@@ -120,4 +123,11 @@ abstract class BaseListBindingActivity<VB : ViewBinding, VM : BaseListViewModel>
         awaitClose()
     }
 
+    /**
+     * 加载结束
+     * 无论加载成功与否都回调
+     */
+    open fun onLoadComplete() {
+
+    }
 }
