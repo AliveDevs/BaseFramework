@@ -5,5 +5,7 @@ sealed interface BaseListIntent{
     object RefreshIntent : BaseListIntent
 
     object LoadMoreDataIntent : BaseListIntent
+
+    data class RemoveItemIntent(val position:Int):BaseListIntent
 }
 

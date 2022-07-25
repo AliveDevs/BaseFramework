@@ -17,4 +17,6 @@ sealed interface BaseListUiState {
     ) : BaseListUiState
 
 
+    data class RemoveSucceeded(val position:Int):BaseListUiState
+
 }

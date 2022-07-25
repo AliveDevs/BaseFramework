@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseListViewModel : BaseViewModel() {
 
-    protected var currentIndex = BaseConstants.DEFAULT_INDEX
+    open var currentIndex = BaseConstants.DEFAULT_INDEX
 
     private val _listIntent = MutableSharedFlow<BaseListIntent>()
 
@@ -32,7 +32,8 @@ abstract class BaseListViewModel : BaseViewModel() {
     @FlowPreview
     private fun Flow<BaseListIntent>.toStateFlow(): Flow<BaseListUiState> = merge(
         filterIsInstance<BaseListIntent.RefreshIntent>().flatMapConcat { refreshList() },
-        filterIsInstance<BaseListIntent.LoadMoreDataIntent>().flatMapConcat { loadList(false) }
+        filterIsInstance<BaseListIntent.LoadMoreDataIntent>().flatMapConcat { loadList(false) },
+        filterIsInstance<BaseListIntent.RemoveItemIntent>().flatMapConcat { removeItem(it.position) }
     ).catch { emit(BaseListUiState.Error(it.msg)) }
 
 
@@ -80,5 +81,9 @@ abstract class BaseListViewModel : BaseViewModel() {
 
     open fun onLoadListStart(): BaseListUiState {
         return BaseListUiState.Loading()
+    }
+
+    open fun removeItem(position:Int):Flow<BaseListUiState>{
+        return flowOf(BaseListUiState.RemoveSucceeded(position))
     }
 }
