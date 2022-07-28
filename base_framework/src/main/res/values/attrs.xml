@@ -41,4 +41,13 @@
         <attr name="ltl_divider_marginStart" format="dimension|reference"/>
         <attr name="ltl_divider_marginEnd" format="dimension|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="ImgGridView">
+        <attr name="igv_row_num" format="integer" />
+        <attr name="igv_max_select" format="integer" />
+        <attr name="igv_add_icon" format="reference"/>
+        <attr name="igv_video_icon" format="reference"/>
+        <attr name="igv_remove_icon" format="reference"/>
+        <attr name="igv_item_radius" format="dimension|reference"/>
+    </declare-styleable>
 </resources>
