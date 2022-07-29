@@ -29,8 +29,7 @@ class ImgGridVH(
             val path = item.data as String
             holder.remove.visible()
             holder.remove.setImageResource(removeIcon)
-            holder.videoFlag.isVisible =
-                path.matches(".+(://).+\\.(mp4|wmv|avi|mpeg|rm|rmvb|flv|3gp|mov|mkv|mod|)".toRegex())
+            holder.videoFlag.isVisible = path.isVideoFile
             holder.videoFlag.setImageResource(videoIcon)
             holder.remove.singleClick {
                 removeCallback.invoke(position)

@@ -15,6 +15,7 @@ import java.lang.reflect.Type
  *  desc: String 扩展
  */
 
+val String.isVideoFile get() = matches(".+(://).+\\.(mp4|wmv|avi|mpeg|rm|rmvb|flv|3gp|mov|mkv|mod|)".toRegex())
 
 /**
  * 反序列化
