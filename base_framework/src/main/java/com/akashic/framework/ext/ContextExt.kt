@@ -165,12 +165,30 @@ fun Postcard.go(
     clear: Boolean = false,
     replace: Boolean = false,
     activityResultCallback: ((activityResult: ActivityResult) -> Unit)? = null
-): Postcard {
+) {
     val activity = ActivityUtils.getTopActivity() as? FragmentActivity
     if (clear) withFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
     if (activity == null) {
         withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         navigation()
+    } else if (activityResultCallback == null) {
+        navigation(activity, object : NavigationCallback {
+            override fun onLost(postcard: Postcard?) {
+                toast("未找到相应页面")
+            }
+
+            override fun onFound(postcard: Postcard?) {
+
+            }
+
+            override fun onInterrupt(postcard: Postcard?) {
+
+            }
+
+            override fun onArrival(postcard: Postcard?) {
+                if (replace) activity.finish()
+            }
+        })
     } else {
         navigation(activity, object : NavigationCallback {
             override fun onLost(postcard: Postcard?) {
@@ -189,8 +207,7 @@ fun Postcard.go(
                 if (replace) activity.finish()
             }
         }) {
-            activityResultCallback?.invoke(it)
+            activityResultCallback.invoke(it)
         }
     }
-    return this
 }
