@@ -35,7 +35,8 @@ ext {
             superTextView     : "v3.2.6.64",
             liveEventBus      : "1.8.0",
             filedownloader    : "1.0.7",
-            pictureSelector:"v3.10.5"
+            pictureSelector:"v3.10.5",
+            activityResultApiExt:"0.0.2"
     ]
 
     deps = [
@@ -98,5 +99,6 @@ ext {
             filedownloaderOkHttp    : "com.liulishuo.okdownload:okhttp:${versions.filedownloader}",
 
             pictureSelector    : "io.github.lucksiege:pictureselector:${versions.pictureSelector}",
+            activityResultApiExt:"com.github.ChinaLike:ActivityResultApi:${versions.activityResultApiExt}"
     ]
 }

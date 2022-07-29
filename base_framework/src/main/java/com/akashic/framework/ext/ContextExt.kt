@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
@@ -15,6 +17,7 @@ import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.Utils
+import com.core.result.navigation
 import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
@@ -144,7 +147,7 @@ fun Fragment.selectSinglePic(
     style: PictureSelectorStyle? = null,
     callback: (result: LocalMedia?) -> Unit
 ) {
-    this.requireActivity().selectSinglePic(selectMimeType,style,callback)
+    this.requireActivity().selectSinglePic(selectMimeType, style, callback)
 }
 
 
@@ -159,17 +162,17 @@ val String.asRoute: Postcard
  * ARouter 页面跳转
  */
 fun Postcard.go(
-    requestCode: Int = -1,
     clear: Boolean = false,
-    replace: Boolean = false
+    replace: Boolean = false,
+    activityResultCallback: (activityResult: ActivityResult) -> Unit
 ) {
-    val activity = ActivityUtils.getTopActivity()
+    val activity = ActivityUtils.getTopActivity() as FragmentActivity?
     if (clear) withFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
     if (activity == null) {
         withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         navigation()
     } else {
-        navigation(activity, requestCode, object : NavigationCallback {
+        navigation(activity, object : NavigationCallback {
             override fun onLost(postcard: Postcard?) {
                 toast("未找到相应页面")
             }
@@ -185,7 +188,9 @@ fun Postcard.go(
             override fun onArrival(postcard: Postcard?) {
                 if (replace) activity.finish()
             }
-        })
+        }) {
+            activityResultCallback.invoke(it)
+        }
     }
 }
 
