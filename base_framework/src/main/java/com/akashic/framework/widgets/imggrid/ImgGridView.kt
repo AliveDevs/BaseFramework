@@ -124,7 +124,7 @@ class ImgGridView : RecyclerView {
     fun addAll(list: List<ImgGridItemData>) {
         val lastIndex = imgListData.lastIndex
         imgListData.addAll(lastIndex, list)
-        imgAdapter.notifyItemInserted(lastIndex)
+        imgAdapter.notifyItemRangeInserted(lastIndex,list.size)
 
         if (imgListData.size > maxSelectNum) {
             imgListData.removeAt(maxSelectNum)//移除添加按钮

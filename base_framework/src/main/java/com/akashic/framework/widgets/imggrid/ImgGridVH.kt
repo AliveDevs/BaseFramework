@@ -6,8 +6,8 @@ import com.akashic.framework.ext.*
 import com.akashic.framework.ui.BaseItemDelegate
 
 class ImgGridVH(
-    private val videoIcon: Int,
     private val removeIcon: Int,
+    private val videoIcon: Int,
     private val radius:Int,
     private val onAddClickCallback: (() -> Unit),
     private val clickCallback: ((position: Int) -> Unit),
