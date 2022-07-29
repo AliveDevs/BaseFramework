@@ -16,4 +16,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "akashicframework"
 include ':base_framework'
-include ':example'
