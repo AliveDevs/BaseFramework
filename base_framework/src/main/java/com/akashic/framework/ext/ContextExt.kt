@@ -158,13 +158,17 @@ fun Fragment.selectSinglePic(
 val String.asRoute: Postcard
     get() = ARouter.getInstance().build(this)
 
+
+var Postcard.activityResult: ActivityResult?
+    get() = extras.getParcelable("activityResult")
+    set(value) = extras.putParcelable("activityResult", value)
+
 /**
  * ARouter 页面跳转
  */
 fun Postcard.go(
     clear: Boolean = false,
-    replace: Boolean = false,
-    activityResultCallback: (activityResult: ActivityResult) -> Unit
+    replace: Boolean = false
 ) {
     val activity = ActivityUtils.getTopActivity() as? FragmentActivity
     if (clear) withFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -189,8 +193,13 @@ fun Postcard.go(
                 if (replace) activity.finish()
             }
         }) {
-            activityResultCallback.invoke(it)
+            activityResult = it
         }
     }
+}
+
+fun Postcard.forResult(activityResultCallback: (activityResult: ActivityResult) -> Unit) {
+    if (activityResult != null)
+        activityResultCallback.invoke(activityResult!!)
 }
 
