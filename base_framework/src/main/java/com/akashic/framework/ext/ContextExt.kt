@@ -166,7 +166,7 @@ fun Postcard.go(
     replace: Boolean = false,
     activityResultCallback: (activityResult: ActivityResult) -> Unit
 ) {
-    val activity = ActivityUtils.getTopActivity() as FragmentActivity?
+    val activity = ActivityUtils.getTopActivity() as? FragmentActivity
     if (clear) withFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
     if (activity == null) {
         withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
