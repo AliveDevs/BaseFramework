@@ -95,6 +95,7 @@ class ImgGridView : RecyclerView {
         }
     }
 
+
     fun show(imgList: List<String>) {
         imgListData.addAll(0, imgList.map { ImgGridItemData(it) })
         imgAdapter.notifyItemRangeInserted(0, imgList.size)
@@ -131,9 +132,21 @@ class ImgGridView : RecyclerView {
         }
     }
 
+    fun setAddActionCallback(callback:(count: Int) -> Unit){
+        onAddClickCallback = callback
+    }
+
+
+    fun setOnItemClickCallback(callback:(list: List<String>, position: Int) -> Unit){
+        clickCallback = callback
+    }
+
+
+
     fun disableAddAction() {
         enableAdd = false
-        imgListData.clear()
-        imgAdapter.notifyItemRangeChanged(0, imgListData.size)
+        val index = imgListData.lastIndex
+        imgListData.removeLast()
+        imgAdapter.notifyItemRemoved(index)
     }
 }
